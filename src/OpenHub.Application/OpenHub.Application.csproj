@@ -1,0 +1,3 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup><ProjectReference Include="../OpenHub.Domain/OpenHub.Domain.csproj" /></ItemGroup>
+</Project>

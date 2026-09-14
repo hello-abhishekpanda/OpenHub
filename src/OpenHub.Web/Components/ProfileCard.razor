@@ -1,0 +1,21 @@
+@inject HttpClient Http
+@if (IsLoading)
+{
+    <article class="profile-card skeleton-card"><div class="skeleton avatar"></div><div class="skeleton line wide"></div><div class="skeleton line"></div><div class="skeleton graph"></div></article>
+}
+else if (Profile is not null)
+{
+    <article class="profile-card">
+        <div class="profile-top"><img src="@Profile.AvatarUrl" alt="@Profile.Username avatar" /><div><span class="badge @Profile.ActivityBadge.ToLowerInvariant()">@Profile.ActivityBadge</span><h2>@(Profile.DisplayName ?? Profile.Username)</h2><p>@@@Profile.Username</p></div><div class="rank"><small>GLOBAL RANK</small><strong>#@(Profile.GlobalRank?.ToString() ?? "—")</strong></div></div>
+        <p class="bio">@(Profile.Bio ?? "Building in public. Profile details will appear after the next sync.")</p>
+        <div class="stats"><div><strong>@Profile.TotalContributions</strong><span>30-day commits</span></div><div><strong>@Profile.RepositoryCount</strong><span>Repositories</span></div><div><strong>@Profile.Followers</strong><span>Followers</span></div><div><strong>@Profile.Score.ToString("N1")</strong><span>OpenHub score</span></div></div>
+        <div class="languages"><div class="section-label"><span>Primary languages</span><span>@Profile.Languages.Count tracked</span></div><div class="language-bar">@foreach (var l in Profile.Languages.Take(5)) { <span style="width:@($"{l.Percentage:F2}%")" title="@($"{l.Name} {l.Percentage:F1}%")"></span> }</div><div class="legend">@foreach (var l in Profile.Languages.Take(5)) { <span><i></i>@l.Name @l.Percentage.ToString("F0")%</span> }</div></div>
+        <div class="card-actions"><span>Last synced @(Profile.LastSyncedAt?.ToLocalTime().ToString("dd MMM, HH:mm") ?? "never")</span><button disabled="@syncing" @onclick="Sync">@(syncing ? "Queued…" : "Sync now")</button></div>
+    </article>
+}
+@code {
+    [Parameter] public ProfileDto? Profile { get; set; }
+    [Parameter] public bool IsLoading { get; set; }
+    private bool syncing;
+    private async Task Sync() { if (Profile is null) return; syncing = true; await Http.PostAsync($"api/profiles/{Profile.Username}/sync", null); await Task.Delay(1200); syncing = false; }
+}

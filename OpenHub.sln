@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHub.Domain", "src/OpenHub.Domain/OpenHub.Domain.csproj", "{78ACBC36-A551-497B-A891-D2815DE47C21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHub.Application", "src/OpenHub.Application/OpenHub.Application.csproj", "{95307FD3-E3C2-49EE-881D-EAF610B57964}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHub.Infrastructure", "src/OpenHub.Infrastructure/OpenHub.Infrastructure.csproj", "{08F17D24-A3B4-4F6D-ACD1-3488C97F9D4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHub.Api", "src/OpenHub.Api/OpenHub.Api.csproj", "{D6B4EC0D-60B9-4439-AE86-D2EA7F480A93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHub.Web", "src/OpenHub.Web/OpenHub.Web.csproj", "{88E1D862-088C-4550-BE22-93EBBBD2D754}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHub.Tests", "tests/OpenHub.Tests/OpenHub.Tests.csproj", "{76A447E6-3B1A-4396-A6AE-FB801F31AB8E}"
+EndProject
+Global
+ GlobalSection(SolutionConfigurationPlatforms) = preSolution
+  Debug|Any CPU = Debug|Any CPU
+  Release|Any CPU = Release|Any CPU
+ EndGlobalSection
+ GlobalSection(ProjectConfigurationPlatforms) = postSolution
+  {78ACBC36-A551-497B-A891-D2815DE47C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+  {78ACBC36-A551-497B-A891-D2815DE47C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+  {95307FD3-E3C2-49EE-881D-EAF610B57964}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+  {95307FD3-E3C2-49EE-881D-EAF610B57964}.Release|Any CPU.ActiveCfg = Release|Any CPU
+  {08F17D24-A3B4-4F6D-ACD1-3488C97F9D4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+  {08F17D24-A3B4-4F6D-ACD1-3488C97F9D4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+  {D6B4EC0D-60B9-4439-AE86-D2EA7F480A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+  {D6B4EC0D-60B9-4439-AE86-D2EA7F480A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+  {88E1D862-088C-4550-BE22-93EBBBD2D754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+  {88E1D862-088C-4550-BE22-93EBBBD2D754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+  {76A447E6-3B1A-4396-A6AE-FB801F31AB8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+  {76A447E6-3B1A-4396-A6AE-FB801F31AB8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+ EndGlobalSection
+EndGlobal
