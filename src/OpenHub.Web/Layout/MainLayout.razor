@@ -1,0 +1,16 @@
+@inherits LayoutComponentBase
+<div class="shell">
+    <aside class="sidebar">
+        <a class="brand" href="/"><span class="brand-mark">O</span><span>OpenHub</span></a>
+        <nav>
+            <NavLink href="/" Match="NavLinkMatch.All">Overview</NavLink>
+            <NavLink href="/leaderboard">Leaderboard</NavLink>
+            <NavLink href="/settings">Settings</NavLink>
+        </nav>
+        <div class="sidebar-foot"><span class="live-dot"></span> Ranking engine live</div>
+    </aside>
+    <main>
+        <header><GlobalSearch /><a class="github-link" href="https://github.com/hello-abhishekpanda/OpenHub" target="_blank">Open source ↗</a></header>
+        <div class="content">@Body</div>
+    </main>
+</div>

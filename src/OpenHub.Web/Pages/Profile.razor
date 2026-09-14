@@ -1,0 +1,12 @@
+@page "/profile/{Username}"
+@inject HttpClient Http
+<PageTitle>@Username — OpenHub</PageTitle>
+<div class="page-head"><div><span class="eyebrow">DEVELOPER PROFILE</span><h1>Engineering signal</h1><p>Fresh activity and repository impact from GitHub.</p></div></div>
+@if (notFound) { <div class="empty"><h2>No profile yet</h2><p>Sync @@@Username to add this developer to OpenHub.</p><button class="primary" @onclick="StartSync">Sync from GitHub</button></div> }
+else { <ProfileCard Profile="profile" IsLoading="@(profile is null)" /> }
+@code {
+ [Parameter] public string Username { get; set; } = "";
+ private ProfileDto? profile; private bool notFound;
+ protected override async Task OnParametersSetAsync() { var r = await Http.GetAsync($"api/profiles/{Uri.EscapeDataString(Username)}"); notFound = r.StatusCode == System.Net.HttpStatusCode.NotFound; if (!notFound) profile = await r.Content.ReadFromJsonAsync<ProfileDto>(); }
+ private async Task StartSync() { await Http.PostAsync($"api/profiles/{Uri.EscapeDataString(Username)}/sync", null); notFound = false; }
+}

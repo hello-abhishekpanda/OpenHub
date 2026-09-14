@@ -1,0 +1,32 @@
+@inject HttpClient Http
+@inject NavigationManager Navigation
+<div class="search-wrap">
+    <span>⌕</span>
+    <input aria-label="Search GitHub profiles" placeholder="Search a GitHub developer…" @bind="query" @bind:event="oninput" @onkeydown="HandleKey" />
+    @if (loading) { <span class="spinner"></span> }
+    @if (results.Count > 0)
+    {
+        <div class="search-results">
+            @foreach (var profile in results)
+            {
+                <button @onclick="() => Open(profile.Username)">
+                    <img src="@profile.AvatarUrl" alt="" /><span><strong>@(profile.DisplayName ?? profile.Username)</strong><small>@@@profile.Username</small></span>
+                </button>
+            }
+        </div>
+    }
+</div>
+@code {
+    private string query = ""; private bool loading; private List<ProfileDto> results = [];
+    private async Task HandleKey(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(query))
+        {
+            loading = true;
+            results = await Http.GetFromJsonAsync<List<ProfileDto>>($"api/profiles/search?query={Uri.EscapeDataString(query)}") ?? [];
+            loading = false;
+            if (results.Count == 0) Navigation.NavigateTo($"/profile/{Uri.EscapeDataString(query)}");
+        }
+    }
+    private void Open(string username) { results.Clear(); query = ""; Navigation.NavigateTo($"/profile/{username}"); }
+}

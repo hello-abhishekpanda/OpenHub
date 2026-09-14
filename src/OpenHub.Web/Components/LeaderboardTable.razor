@@ -1,0 +1,19 @@
+@inject HttpClient Http
+<div class="table-card">
+    <div class="table-title"><div><h2>Global leaderboard</h2><p>Live scores served from Redis sorted sets</p></div><span class="live-pill">● LIVE</span></div>
+    @if (loading) { <div class="table-loading">Loading rankings…</div> }
+    else
+    {
+        <table><thead><tr><th>Rank</th><th>Developer</th><th>Activity</th><th class="right">Score</th></tr></thead>
+        <tbody>@foreach (var item in data?.Items ?? []) { <tr><td><span class="rank-no">@item.Rank</span></td><td><div class="developer"><img src="@item.AvatarUrl" alt="" /><span><strong>@(item.DisplayName ?? item.Username)</strong><small>@@@item.Username</small></span></div></td><td><span class="badge @item.ActivityBadge.ToLowerInvariant()">@item.ActivityBadge</span></td><td class="right score">@item.Score.ToString("N1")</td></tr> }</tbody></table>
+        <div class="pagination"><span>@(data?.Total ?? 0) ranked developers</span><div><button disabled="@(page == 1)" @onclick="Prev">←</button><span>Page @page</span><button disabled="@(!HasNext)" @onclick="Next">→</button></div></div>
+    }
+</div>
+@code {
+    [Parameter] public int PageSize { get; set; } = 10;
+    private PageResult<LeaderboardEntry>? data; private int page = 1; private bool loading;
+    private bool HasNext => page * PageSize < (data?.Total ?? 0);
+    protected override Task OnInitializedAsync() => Load();
+    private async Task Load() { loading = true; data = await Http.GetFromJsonAsync<PageResult<LeaderboardEntry>>($"api/leaderboard?page={page}&pageSize={PageSize}"); loading = false; }
+    private async Task Prev() { page--; await Load(); } private async Task Next() { page++; await Load(); }
+}
